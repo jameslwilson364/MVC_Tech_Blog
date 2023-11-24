@@ -3,30 +3,32 @@ const Topic = require('./Topic');
 const Comment = require('./Comment');
 
 User.hasMany(Topic, {
-  foreignKey: 'user_name',
+  foreignKey: 'user_id',
+  // foreignKey: 'user_name',
   onDelete: 'CASCADE',
 });
 
 Topic.belongsTo(User, {
-  foreignKey: 'user_name',
+  foreignKey: 'user_id',
+  // foreignKey: 'name',
 });
 
 User.hasMany(Comment, {
-  foreignKey: 'user_name',
+  foreignKey: 'user_id',
   onDelete: 'CASCADE',
 });
 
 Comment.belongsTo(User, {
-  foreignKey: 'user_name',
+  foreignKey: 'user_id',
 });
 
 Topic.hasMany(Comment, {
-  foreignKey: 'topic_name',
+  foreignKey: 'topic_id',
   onDelete: 'CASCADE',
 });
 
 Topic.belongsTo(Comment, {
-  foreignKey: 'topic_name',
+  foreignKey: 'topic_id',
 });
 
 module.exports = { User, Topic, Comment };
