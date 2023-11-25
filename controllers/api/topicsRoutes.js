@@ -1,11 +1,23 @@
 const router = require('express').Router();
-const { Topic } = require('../../models');
+const { Topic, User} = require('../../models');
+
+// get all topics
+router.get('/', async (req, res) => {
+  try {
+    const topicData = await Topic.findAll({
+      include: [{ model: User }],
+    });
+    res.status(200).json(topicData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // get a topic by id
 router.get('/:id', async (req, res) => {
   try {
     const topicData = await Topic.findByPk(req.params.id, { 
-      include: [{ User}],
+      include: [{ model: User}],
     });
 
     if (!topicData) {
